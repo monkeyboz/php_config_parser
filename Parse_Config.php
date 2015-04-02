@@ -3,11 +3,12 @@ class Parse_Config{
     public function parse_string($config){
 		//preg_match the config file content to find the solution.
 		$config = trim($config);
-		$config = preg_replace('/\#\w+/s','',$config);
-		preg_match_all("/(.*)\=(.*)\=?/",$config,$peg);
+		$config = preg_replace('/\#\w+/s','',$config); //remove comments (needs to be fixed for code comments) PHP5.6+ possibly
+		preg_match_all("/(.*)\=(.*)\=?/",$config,$peg); //regular expression used for parsing code
 		
 		$info = array();
-		$bool_vals = array('on','off','true','false','yes','no');
+		$bool_vals = array('on','off','true','false','yes','no'); //boolean array used for boolean responses
+		//traverse through the array to find the different variables found in the config file
 		foreach($peg[1] as $k=>$a){
 		    $a = trim($a);
 		    $peg[2][$k] = trim($peg[2][$k]);
